@@ -31,3 +31,20 @@ module.exports.createUser = (newUser, cb) =>{
     });
   });
 }
+
+module.exports.getUserByUsername = (username, cb) => {
+  const query = {username};
+  User.findOne(query, cb);
+}
+
+module.exports.getUserById = (id, cb) => {
+    User.findById(id,cb);
+}
+
+module.exports.comparePassword = (candidatePassword, hash, cb) => {
+  bcrypt.compare(candidatePassword, hash, (err, isMatch)=>{
+    if(err) throw err;
+    cb(null, isMatch);
+  })
+}
+
